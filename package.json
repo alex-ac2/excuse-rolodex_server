@@ -1,0 +1,19 @@
+{
+  "name": "excuse-rolodex_server",
+  "version": "1.0.0",
+  "description": "Excuse-Rolodex backend server using GraphQL and Postgres",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Excuse",
+    "Rolodex",
+    "graphql",
+    "express",
+    "node",
+    "postgres"
+  ],
+  "author": "alex-ac2",
+  "license": "ISC"
+}
