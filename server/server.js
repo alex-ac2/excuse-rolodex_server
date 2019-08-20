@@ -1,5 +1,13 @@
 const express = require('express');
 const app = express();
+require('dotenv').config();
+
+// Postgres connection
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize('database', 'username', 'password', {
+  host: 'localhost',
+  dialect: 'postgres'
+});
 
 // graphQL
 const { ApolloServer, gql } = require('apollo-server-express');
