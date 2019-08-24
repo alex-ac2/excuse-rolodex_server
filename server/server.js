@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 require('dotenv').config();
 const db = require('../models/index');
+const models = require('../models');
 
 // Postgres connection
 // const Sequelize = require('sequelize');
@@ -20,6 +21,7 @@ const server = new ApolloServer({
   // These will be defined for both new or existing servers
   typeDefs,
   resolvers,
+  context: { models }
 });
 
 server.applyMiddleware({ app }); // app is from an existing express app
