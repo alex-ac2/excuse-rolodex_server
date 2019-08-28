@@ -30,7 +30,7 @@ const typeDefs = gql`
       category: String
       caption: String
       userId: Int
-    ): Excuse!
+    ): Excuse
     createUser(
       userName: String!
       email: String!

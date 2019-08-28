@@ -26,7 +26,7 @@ const resolvers = {
         where: { id: id }    
       });
 
-      return excuseObj;
+      //return excuseObj;
     },
     async createUser (root, { userName, email, password }, { models }) {
       return models.User.create({ userName, email, password })
