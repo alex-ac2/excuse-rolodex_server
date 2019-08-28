@@ -25,6 +25,12 @@ const typeDefs = gql`
       caption: String!
       userId: Int
     ): Excuse!
+    updateExcuse (
+      id: Int!
+      category: String
+      caption: String
+      userId: Int
+    ): Excuse
     createUser(
       userName: String!
       email: String!
