@@ -15,8 +15,6 @@ const resolvers = {
         { id: id }
       })
       .then(res => {
-        
-
         if (res === null) {
           console.log('RES: ', res);
           return {id: id, caption: `${id} does not exist`};
@@ -48,14 +46,10 @@ const resolvers = {
           
           return excuseObj;
         }      
-
-      
-        
       })
       .catch(err => console.log('Err: ', err));
-      
-      return newResult;
 
+      return newResult;
     },
     async createUser (root, { userName, email, password }, { models }) {
       return models.User.create({ userName, email, password })
