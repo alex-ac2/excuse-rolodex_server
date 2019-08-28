@@ -10,23 +10,52 @@ const resolvers = {
       return models.Excuse.create({ category, caption, userId })
     },
     async updateExcuse (root, { id, category, caption, userId }, { models }) {
-      const excuseObj = {};
+      console.log('ID: ', id);
+      const newResult = await models.Excuse.findOne({where: 
+        { id: id }
+      })
+      .then(res => {
+        
 
-      if (caption !== undefined) {
-        excuseObj.caption = caption; 
-      }
-      if (category !== undefined) {
-        excuseObj.category = category; 
-      }
-      if (userId !== undefined) {
-        excuseObj.userId = userId;
-      }
+        if (res === null) {
+          console.log('RES: ', res);
+          return {id: id, caption: `${id} does not exist`};
+        } else {
+          const excuseObj = {};
+          console.log('RES: ', res.dataValues);
+          const originalObject = res.dataValues;
+          excuseObj.id = id;
 
-      models.Excuse.update( excuseObj, {
-        where: { id: id }    
-      });
+          if (caption !== undefined) {
+            excuseObj.caption = caption; 
+          } else {
+            excuseObj.caption = originalObject.caption;
+          }
+          if (category !== undefined) {
+            excuseObj.category = category; 
+          } else {
+            excuseObj.category = originalObject.category; 
+          }
+          if (userId !== undefined) {
+            excuseObj.userId = userId;
+          } else {
+            excuseObj.userId = originalObject.userId;
+          }
 
-      //return excuseObj;
+          models.Excuse.update( excuseObj, {
+            where: { id: id }    
+          })
+          
+          return excuseObj;
+        }      
+
+      
+        
+      })
+      .catch(err => console.log('Err: ', err));
+      
+      return newResult;
+
     },
     async createUser (root, { userName, email, password }, { models }) {
       return models.User.create({ userName, email, password })
