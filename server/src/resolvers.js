@@ -16,8 +16,9 @@ const resolvers = {
       })
       .then(res => {
         if (res === null) {
+          const errorPhrase = `${id} does not exist`;
           console.log('RES: ', res);
-          return {id: id, caption: `${id} does not exist`};
+          return {id: id, category: errorPhrase, caption: errorPhrase, userId: 0};
         } else {
           const excuseObj = {};
           console.log('RES: ', res.dataValues);
@@ -40,11 +41,17 @@ const resolvers = {
             excuseObj.userId = originalObject.userId;
           }
 
-          models.Excuse.update( excuseObj, {
+          const updateResult = models.Excuse.update( excuseObj, {
             where: { id: id }    
           })
-          
-          return excuseObj;
+          .then(res => { 
+            return excuseObj;
+          })
+          .catch(err => { 
+            return {id: id, category: err.parent.detail, caption: err.parent.detail, userId: 0};
+          })
+
+          return updateResult;
         }      
       })
       .catch(err => console.log('Err: ', err));
