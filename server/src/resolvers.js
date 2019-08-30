@@ -45,15 +45,13 @@ const resolvers = {
             where: { id: id }    
           })
           .then(res => { 
-            console.log("SECOND: ", res);
             return excuseObj;
           })
-          .catch(err => { console.log("SECOND-ERR: ", err.parent.detail)
-          return {id: id, category: err.parent.detail, caption: err.parent.detail, userId: 0};
+          .catch(err => { 
+            return {id: id, category: err.parent.detail, caption: err.parent.detail, userId: 0};
           })
 
           return updateResult;
-          
         }      
       })
       .catch(err => console.log('Err: ', err));
