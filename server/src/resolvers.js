@@ -1,3 +1,5 @@
+const { UserInputError } = require('apollo-server-express');
+
 const resolvers = {
   Query: {
     hello: () => 'hello friend',
@@ -18,7 +20,11 @@ const resolvers = {
         if (res === null) {
           const errorPhrase = `${id} does not exist`;
           console.log('RES: ', res);
-          return {id: id, category: errorPhrase, caption: errorPhrase, userId: 0};
+          //return {id: id, category: errorPhrase, caption: errorPhrase, userId: 0};
+          return new UserInputError(
+            `This ID (${id}) does not exist, it's not there`
+          );
+
         } else {
           const excuseObj = {};
           console.log('RES: ', res.dataValues);
@@ -48,7 +54,10 @@ const resolvers = {
             return excuseObj;
           })
           .catch(err => { 
-            return {id: id, category: err.parent.detail, caption: err.parent.detail, userId: 0};
+            //return {id: id, category: err.parent.detail, caption: err.parent.detail, userId: 0};
+            return new UserInputError(
+              err.parent.detail
+            );
           })
 
           return updateResult;
